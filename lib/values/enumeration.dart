@@ -12,7 +12,7 @@ extension NetworkStateExtension on NetworkState {
 
 enum SharedPrefsKeys { isLoggedIn }
 
-enum SecureStorageKeys { kAccessToken }
+enum SecureStorageKeys { kAccessToken,ipaddress }
 
 enum Priority { high, medium, low }
 

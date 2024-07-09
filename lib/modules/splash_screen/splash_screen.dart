@@ -31,14 +31,22 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _loadWidget() async {
 
 
-    final accessToken =  await SecureStorage.getValue(key: SecureStorageKeys.kAccessToken);
-    final isLoggedIn = accessToken?.isNotNullAndNotEmpty;
+    final ipaddress =  await SecureStorage.getValue(key: SecureStorageKeys.ipaddress);
+    if(ipaddress.isNullOrEmpty){
+      SecureStorage.setValue(
+        key: SecureStorageKeys.ipaddress,
+        value: '1.168',
+      );
+    }
+
+/*    final accessToken =  await SecureStorage.getValue(key: SecureStorageKeys.kAccessToken);
+    final isLoggedIn = accessToken?.isNotNullAndNotEmpty;*/
 
     // This will remove splash screen after 3 seconds and push next screen.
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 1),
       () => navigationPage(
-         AppRoutes.homeScreen.routeName ,
+         AppRoutes.webview.routeName ,
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:foodqueen/app.dart';
+import 'package:foodqueen/services/secure_storage.dart';
 import 'package:foodqueen/utils/extensions.dart';
+import 'package:foodqueen/values/enumeration.dart';
 import 'package:foodqueen/values/strings.dart';
 import 'package:mobx/mobx.dart';
 
@@ -26,15 +28,14 @@ abstract class _HomeScreenStore with Store {
   Future<void> checkIpAddress() async {
     ipAddressError = null;
     var ipaddress = ipAddress.text;
-    var isValidIPaddress= await Ping ('${ipaddress}:8500', count: 1).stream.first;
-    if(isValidIPaddress.error != null){
-      ipAddressError='wrong Ip Address';
-      }else{
-      navigator.pushReplacementNamed(
-        AppRoutes.webview.routeName,
-        arguments:{'link': '${ipaddress}:8500'},
+   // var isValidIPaddress= await Ping ('Http://192.168.${ipaddress}:8500', count: 1).stream.first;
+
+      SecureStorage.setValue(
+        key: SecureStorageKeys.ipaddress,
+        value: ipaddress.trim(),
       );
-    }
+      navigator.pushReplacementNamed(AppRoutes.webview.routeName);
+
   }
 
 

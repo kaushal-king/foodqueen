@@ -54,7 +54,7 @@ dependencies:
   url_launcher: ^6.2.6
   flutter_svg: ^2.0.10+1
   dart_ping: ^9.0.1
-  webview_flutter: ^4.8.0
+  flutter_inappwebview: ^6.0.0
 
 dev_dependencies:
   flutter_test:

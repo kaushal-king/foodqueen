@@ -5,8 +5,10 @@ import 'package:foodqueen/app.dart';
 import 'package:foodqueen/gen/assets.gen.dart';
 import 'package:foodqueen/modules/home_screen/home_screen_store.dart';
 import 'package:foodqueen/modules/home_screen/widgets/home_bottom_sheet/bottomsheet.dart';
+import 'package:foodqueen/services/secure_storage.dart';
 import 'package:foodqueen/utils/extensions.dart';
 import 'package:foodqueen/values/app_colors.dart';
+import 'package:foodqueen/values/enumeration.dart';
 import 'package:foodqueen/values/strings.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,12 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadWidget() async {
     if (mounted) {
       final store = context.provide<HomeScreenStore>();
-
-      final result = await Ping('localhost:8085', count: 1).stream.first;
+      final ipaddress =  await SecureStorage.getValue(key: SecureStorageKeys.ipaddress);
+      final result = await Ping('Http://192.168.${ipaddress}:8500', count: 1).stream.first;
 
       if (result.error != null) {
         showModalBottomSheet(
             enableDrag: false,
+            isDismissible: false,
+            isScrollControlled: true,
             context: context,
             builder: (context) {
               return Observer(
@@ -46,10 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             });
       } else {
-        navigator.pushReplacementNamed(
-          AppRoutes.webview.routeName,
-          arguments:{'link': 'localhost:8085'},
-        );
+        navigator.pushReplacementNamed(AppRoutes.webview.routeName);
       }
     }
   }

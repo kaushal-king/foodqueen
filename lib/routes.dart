@@ -4,6 +4,7 @@ import 'package:foodqueen/modules/home_screen/home_screen_store.dart';
 import 'package:foodqueen/modules/splash_screen/splash_screen.dart';
 import 'package:foodqueen/modules/splash_screen/splash_screen_store.dart';
 import 'package:foodqueen/modules/web_view/web_view.dart';
+import 'package:foodqueen/modules/web_view/web_view_store.dart';
 import 'package:foodqueen/utils/common_widgets/invalid_route.dart';
 import 'package:foodqueen/utils/extensions.dart';
 import 'package:foodqueen/utils/helpers/helpers.dart';
@@ -41,7 +42,11 @@ class Routes {
           ),
         );
       case AppRoutes.webview:
-        return getRoute(widget:  WebView());
+        return getRoute(
+          widget: const WebView().withProvider(
+            WebViewStore(),
+          ),
+        );
 /*
       case AppRoutes.login:
         return getRoute(
